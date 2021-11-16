@@ -1,0 +1,71 @@
+uuid: c8f60a36-d67f-4364-8c22-892b3e823d08
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.event.body
+    - field.field.node.event.field_event_active
+    - field.field.node.event.field_event_address
+    - field.field.node.event.field_event_additional_links
+    - field.field.node.event.field_event_contrib_event_type
+    - field.field.node.event.field_event_dates
+    - field.field.node.event.field_event_link
+    - field.field.node.event.field_event_location
+    - node.type.event
+  module:
+    - datetime_range
+    - text
+    - user
+id: node.event.teaser
+targetEntityType: node
+bundle: event
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 4
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  field_event_active:
+    type: boolean
+    weight: 5
+    region: content
+    label: inline
+    settings:
+      format: custom
+      format_custom_true: 'Active Event'
+      format_custom_false: 'Inactive Event'
+    third_party_settings: {  }
+  field_event_contrib_event_type:
+    type: entity_reference_label
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+  field_event_dates:
+    type: daterange_default
+    weight: 3
+    region: content
+    label: inline
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_additional_event_links: true
+  field_event_additional_links: true
+  field_event_address: true
+  field_event_link: true
+  field_event_location: true

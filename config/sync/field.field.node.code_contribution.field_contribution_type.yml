@@ -1,0 +1,29 @@
+uuid: 4cbf0f4e-aa52-4e31-9ff3-f8d4033f6a96
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contribution_type
+    - node.type.code_contribution
+    - taxonomy.vocabulary.contribution_type
+id: node.code_contribution.field_contribution_type
+field_name: field_contribution_type
+entity_type: node
+bundle: code_contribution
+label: 'Contribution Type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      contribution_type: contribution_type
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

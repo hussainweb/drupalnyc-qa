@@ -1,0 +1,4 @@
+name: Contribution Tracker Manager
+type: module
+description: Provides support for tracking contribution from various sources
+core_version_requirement: ^8.9 || ^9

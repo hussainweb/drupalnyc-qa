@@ -1,0 +1,34 @@
+uuid: 55a794cb-5019-47b6-8bcb-2df874f6da4b
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: -9
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'access tour'
+  - 'access user profiles'
+  - 'create code_contribution content'
+  - 'create event_contribution content'
+  - 'create issue content'
+  - 'create non_code_contribution content'
+  - 'delete own code_contribution content'
+  - 'delete own event_contribution content'
+  - 'delete own issue content'
+  - 'delete own non_code_contribution content'
+  - 'edit own code_contribution content'
+  - 'edit own event_contribution content'
+  - 'edit own issue content'
+  - 'edit own non_code_contribution content'
+  - 'post comments'
+  - 'search content'
+  - 'skip comment approval'
+  - 'use text format basic_html'
+  - 'view own field_contrib_moderator_comment'

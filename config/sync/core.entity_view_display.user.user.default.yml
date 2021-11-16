@@ -1,0 +1,61 @@
+uuid: 4f997ed8-6058-40ac-8078-8d4e1ba6b8e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.user.user.field_do_username
+    - field.field.user.user.field_drupalorg_username
+    - field.field.user.user.field_github_username
+    - field.field.user.user.user_picture
+    - image.style.thumbnail
+  module:
+    - do_username
+    - image
+    - user
+_core:
+  default_config_hash: L2mtwGWH_7wDRCMIR4r_Iu_jmvQ10DV1L8ht8iNZ5qY
+id: user.user.default
+targetEntityType: user
+bundle: user
+mode: default
+content:
+  field_do_username:
+    type: do_username_default
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+  field_drupalorg_username:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_github_username:
+    type: string
+    weight: 2
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  member_for:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_picture:
+    type: image
+    weight: 3
+    settings:
+      image_style: thumbnail
+      image_link: content
+    third_party_settings: {  }
+    label: hidden
+    region: content
+hidden: {  }

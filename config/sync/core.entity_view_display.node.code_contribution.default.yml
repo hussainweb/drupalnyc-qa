@@ -1,0 +1,140 @@
+uuid: 67a12202-4df4-4e7c-949b-6550559a0273
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.code_contribution.field_code_contrib_files_count
+    - field.field.node.code_contribution.field_code_contrib_issue_link
+    - field.field.node.code_contribution.field_code_contrib_issue_status
+    - field.field.node.code_contribution.field_code_contrib_link
+    - field.field.node.code_contribution.field_code_contrib_patches_count
+    - field.field.node.code_contribution.field_code_contrib_project
+    - field.field.node.code_contribution.field_contrib_moderator_comment
+    - field.field.node.code_contribution.field_contribution_author
+    - field.field.node.code_contribution.field_contribution_date
+    - field.field.node.code_contribution.field_contribution_description
+    - field.field.node.code_contribution.field_contribution_technology
+    - field.field.node.code_contribution.field_contribution_type
+    - node.type.code_contribution
+  module:
+    - datetime
+    - link
+    - options
+    - text
+    - user
+id: node.code_contribution.default
+targetEntityType: node
+bundle: code_contribution
+mode: default
+content:
+  field_code_contrib_files_count:
+    weight: 12
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_code_contrib_issue_link:
+    weight: 9
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_code_contrib_issue_status:
+    weight: 6
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_code_contrib_link:
+    weight: 11
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_code_contrib_patches_count:
+    weight: 13
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_code_contrib_project:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_contrib_moderator_comment:
+    weight: 10
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_contribution_author:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_contribution_date:
+    weight: 1
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_contribution_description:
+    weight: 5
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_contribution_technology:
+    weight: 3
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_contribution_type:
+    weight: 2
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  flag_contribution_approval:
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

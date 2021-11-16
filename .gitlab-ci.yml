@@ -1,0 +1,121 @@
+stages:
+  - build
+  - lint
+  - test
+  - deploy
+
+include:
+  - local: ".gitlab/platform.yml"
+
+.default-pipelines: &default-pipelines
+  only:
+    - master
+    - theme
+    - tags
+    - merge_requests
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - $CI_PROJECT_DIR/.npm
+
+drupal_codequality:
+  <<: *default-pipelines
+  image: hussainweb/drupalqa:php7.4
+  stage: lint
+  script:
+    - composer validate
+    - phplint --no-cache -v web/modules/custom/
+    - phpcs --standard=phpcs.xml.dist --extensions=php,module,inc,install,test,profile,theme --ignore=/node_modules/ web/modules/custom
+    - phpmd web/modules/custom/ text phpmd.xml
+  tags:
+    - docker
+  except:
+    - schedule
+
+drupal_tests:
+  <<: *default-pipelines
+  image: hussainweb/drupal-base:php7.4
+  services:
+    - name: registry.gitorious.xyz/contrib-tracker/backend/db:theme
+      alias: mariadb
+  stage: test
+  tags:
+    - docker
+  variables:
+    SITE_BASE_URL: "http://localhost"
+    ALLOW_EMPTY_PASSWORD: "yes"
+
+  before_script:
+    - ./.gitlab/ci.sh
+
+  script:
+    - composer install -o
+
+    # Clearing drush cache and importing configs
+    - ./vendor/drush/drush/drush cr
+    - ./vendor/drush/drush/drush -y updatedb
+    - ./vendor/drush/drush/drush -y config-import
+
+    #  Phpunit execution
+    - ./vendor/bin/phpunit --testsuite unit
+    - ./vendor/bin/phpunit --bootstrap=./vendor/weitzman/drupal-test-traits/src/bootstrap-fast.php --configuration ./phpunit.xml --testsuite existing-site
+  except:
+    - schedule
+  needs:
+    - drupal_codequality
+
+
+frontend_codequality:
+  <<: *default-pipelines
+  except:
+    - schedule
+  image: node:lts
+  stage: lint
+  variables:
+    CYPRESS_CACHE_FOLDER: $CI_PROJECT_DIR/web/themes/custom/contribtracker/node_modules/CYPRESS_CACHE
+  script:
+    - cd web/themes/custom/contribtracker
+    - npm ci --cache $CI_PROJECT_DIR/.npm --prefer-offline
+    - npm run lint
+  tags:
+    - docker
+
+frontend_vr:
+  except:
+    refs:
+      - merge_requests
+    variables:
+      - $CI_COMMIT_REF_NAME == /^renovate\/.*/i
+      - $CI_COMMIT_MESSAGE =~ /renovate\//i
+  image: skippednote/drupal-cypress:1.0.5
+  tags:
+    - docker
+  services:
+    - name: registry.gitorious.xyz/contrib-tracker/backend/db:theme
+      alias: mariadb
+  stage: test
+  variables:
+    CYPRESS_CACHE_FOLDER: $CI_PROJECT_DIR/web/themes/custom/contribtracker/node_modules/CYPRESS_CACHE
+    SITE_BASE_URL: "http://localhost"
+    ALLOW_EMPTY_PASSWORD: "yes"
+  before_script:
+    - .gitlab/ci.sh
+  script:
+    - composer install -o
+    - vendor/bin/drush -y updb
+    - vendor/bin/drush -y cim
+    - vendor/bin/drush upwd ct-admin "ct-admin"
+    - vendor/bin/drush cr
+    - cd web/themes/custom/contribtracker
+    - npm ci --cache $CI_PROJECT_DIR/.npm --prefer-offline
+    - npm run build
+    - npm run vr
+  artifacts:
+    expire_in: 1 week
+    when: always
+    paths:
+      - $CI_PROJECT_DIR/web/themes/custom/contribtracker/cypress/screenshots
+      - $CI_PROJECT_DIR/web/themes/custom/contribtracker/cypress/videos
+  needs:
+    - frontend_codequality

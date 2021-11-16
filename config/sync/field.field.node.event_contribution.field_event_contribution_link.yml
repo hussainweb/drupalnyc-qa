@@ -1,0 +1,23 @@
+uuid: 9ab64c49-624e-4e33-936c-64d6f3d99c1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_event_contribution_link
+    - node.type.event_contribution
+  module:
+    - link
+id: node.event_contribution.field_event_contribution_link
+field_name: field_event_contribution_link
+entity_type: node
+bundle: event_contribution
+label: 'Event Contribution Link'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 16
+  title: 1
+field_type: link

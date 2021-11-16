@@ -1,0 +1,23 @@
+uuid: 0c759e03-1f48-4712-bd47-345a56094bdb
+langcode: en
+status: true
+dependencies:
+  config:
+    - fixed_block_content.fixed_block_content.axelerant_logo
+  module:
+    - fixed_block_content
+  theme:
+    - contribtracker
+id: axelerantlogo
+theme: contribtracker
+region: footer_primary
+weight: -5
+provider: null
+plugin: 'fixed_block_content:axelerant_logo'
+settings:
+  id: 'fixed_block_content:axelerant_logo'
+  label: 'Axelerant Logo'
+  provider: fixed_block_content
+  label_display: '0'
+  view_mode: ''
+visibility: {  }

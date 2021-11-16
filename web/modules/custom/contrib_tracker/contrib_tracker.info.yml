@@ -1,0 +1,5 @@
+name: Contrib Tracker
+type: module
+description: 'Track contributions from drupal.org'
+core_version_requirement: ^8.9 || ^9
+package: Contrib Tracker
