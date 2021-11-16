@@ -28,10 +28,15 @@ jobs:
       - name: DrupalQA
         # You may pin to the exact commit or the version.
         uses: hussainweb/drupalqa-action@v1
-#         with:
+        with:
 #           # PHP version.
 #           php-version: # optional, default is 7.4
 #           # Web root (document root). This is set to web by default. Do not include trailing slash.
 #           web-root: # optional, default is web
 #           # Checks to run. This is a YAML formatted structure and must begin with a pipe character.
-#           checks: # optional, default is 
+          checks: |
+            phplint: {}
+            phpcs:
+              standard: phpcs.xml.dist
+            phpmd:
+              ruleset: phpmd.xml
